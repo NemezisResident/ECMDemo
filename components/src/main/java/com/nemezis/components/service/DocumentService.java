@@ -1,5 +1,9 @@
-package com.nemezis.components;
+package com.nemezis.components.service;
 
+import com.nemezis.components.dao.DocumentRepository;
+import com.nemezis.components.dao.DocumentTypeRepository;
+import com.nemezis.components.entity.Document;
+import com.nemezis.components.entity.DocumentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

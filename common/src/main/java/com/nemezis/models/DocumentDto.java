@@ -1,4 +1,4 @@
-package com.nemezis.components;
+package com.nemezis.models;
 
 import java.util.Date;
 

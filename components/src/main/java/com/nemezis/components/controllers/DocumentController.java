@@ -1,5 +1,8 @@
-package com.nemezis.components;
+package com.nemezis.components.controllers;
 
+import com.nemezis.components.entity.Document;
+import com.nemezis.components.service.DocumentService;
+import com.nemezis.components.entity.DocumentType;
 import com.nemezis.models.Wrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

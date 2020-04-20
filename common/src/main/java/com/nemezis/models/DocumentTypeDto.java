@@ -1,4 +1,4 @@
-package com.nemezis.components;
+package com.nemezis.models;
 
 /**
  * Created by Nemezis on 08.06.2019.

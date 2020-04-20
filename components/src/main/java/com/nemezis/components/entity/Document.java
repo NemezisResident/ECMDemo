@@ -1,4 +1,4 @@
-package com.nemezis.components;
+package com.nemezis.components.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
