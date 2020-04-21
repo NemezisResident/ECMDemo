@@ -19,17 +19,7 @@ public class DocumentService {
     @Autowired private DocumentRepository documentRepository;
     @Autowired private DocumentTypeRepository documentTypeRepository;
 
-
-    @Transactional(readOnly = true)
-    public List<Document> getDocuments() {
-        return documentRepository.findAll();
-    }
-
-    @Transactional()
-    public Document saveDocument(Document document) {
-        return documentRepository.save(document);
-    }
-
+    // DocumentType
     @Transactional(readOnly = true)
     public List<DocumentType> getDocumentTypes() {
         return documentTypeRepository.findAll();
@@ -43,5 +33,31 @@ public class DocumentService {
     @Transactional()
     public DocumentType saveDocumentTypes(DocumentType documentType) {
         return documentTypeRepository.save(documentType);
+    }
+
+    @Transactional()
+    public void deleteDocumentTypeById(Long id) {
+        documentTypeRepository.deleteById(id);
+    }
+
+    // Documents
+    @Transactional(readOnly = true)
+    public List<Document> getDocuments() {
+        return documentRepository.findAll();
+    }
+
+    @Transactional()
+    public Document saveDocument(Document document) {
+        return documentRepository.save(document);
+    }
+
+    @Transactional(readOnly = true)
+    public Object getDocumentById(Long id) {
+        return documentRepository.findById(id);
+    }
+
+    @Transactional()
+    public void deleteDocumentById(Long id) {
+        documentRepository.deleteById(id);
     }
 }
