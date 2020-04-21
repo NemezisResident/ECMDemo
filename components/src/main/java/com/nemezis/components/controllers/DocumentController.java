@@ -3,7 +3,9 @@ package com.nemezis.components.controllers;
 import com.nemezis.components.entity.Document;
 import com.nemezis.components.service.DocumentService;
 import com.nemezis.components.entity.DocumentType;
+import com.nemezis.models.DocumentTypeDto;
 import com.nemezis.models.Wrapper;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import java.util.List;
 public class DocumentController {
 
     @Autowired private DocumentService documentService;
+    @Autowired private MapperFacade mapperFacade;
 
     @GetMapping("/documentType")
     public List<DocumentType> getDocumentTypes() {
@@ -26,8 +29,8 @@ public class DocumentController {
     }
 
     @GetMapping("/documentType/{id}")
-    public Wrapper<DocumentType> getDocumentTypeById(@PathVariable Long id) {
-        return Wrapper.create(documentService.getDocumentTypeById(id));
+    public Wrapper<DocumentTypeDto> getDocumentTypeById(@PathVariable Long id) {
+        return Wrapper.create(mapperFacade.map(documentService.getDocumentTypeById(id), DocumentTypeDto.class));
     }
 
     @GetMapping("/document")
