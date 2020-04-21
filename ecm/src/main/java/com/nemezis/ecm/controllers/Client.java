@@ -16,6 +16,7 @@ abstract class Client {
     protected final static String GATEWAY_PATH = "http://localhost:";
     protected final static String URI_DOC_TYPE = "8082/ECM/components/documentTypes";
     protected final static String URI_DOCS = "8082/ECM/components/documents";
+    protected final static String URI_USERS = "8081/ECM/users";
 
     Client(final String servicePath) {
         this.restTemplate = new RestTemplate(Collections.singletonList(new MappingJackson2HttpMessageConverter()));

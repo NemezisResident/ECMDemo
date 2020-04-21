@@ -1,12 +1,13 @@
 package com.nemezis.users.controllers;
 
+import com.nemezis.models.UserDto;
+import com.nemezis.models.Wrapper;
 import com.nemezis.users.entity.User;
 import com.nemezis.users.services.UserService;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,14 +18,27 @@ import java.util.List;
 public class UserController {
 
     @Autowired private UserService userService;
+    @Autowired private MapperFacade mapperFacade;
 
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userService.getAlUsersl();
+    // Documents
+    @GetMapping("/")
+    public Wrapper<List<UserDto>> getDocuments() {
+        return Wrapper.create(mapperFacade.mapAsList(userService.getUsers(), UserDto.class));
     }
 
-    @PutMapping("/users")
-    public void save(@RequestBody User user) {
-        userService.save(user);
+    @GetMapping("/{id}")
+    public Wrapper<UserDto> getDocumentById(@PathVariable Long id) {
+        return Wrapper.create(mapperFacade.map(userService.getUserById(id), UserDto.class));
+    }
+
+    @PutMapping("/")
+    public ResponseEntity putDocument(@RequestBody UserDto UserDto) {
+        return ResponseEntity.ok(userService.saveUser(mapperFacade.map(UserDto, User.class)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteDocumentById(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,11 +1,9 @@
 package com.nemezis.ecm.controllers;
 
-import com.nemezis.ecm.models.WrapperDocument;
-import com.nemezis.ecm.models.WrapperDocumentList;
-import com.nemezis.ecm.models.WrapperDocumentType;
-import com.nemezis.ecm.models.WrapperDocumentTypeList;
+import com.nemezis.ecm.models.*;
 import com.nemezis.models.DocumentDto;
 import com.nemezis.models.DocumentTypeDto;
+import com.nemezis.models.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -64,6 +62,29 @@ public class ECMController extends Client {
     @RequestMapping(value = "/documents/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteDocumentById(@PathVariable String id) {
         restTemplate.delete(GATEWAY_PATH + URI_DOCS + "/" + id);
+        return ResponseEntity.ok().build();
+    }
+
+    // Users
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<UserDto> getUsers() {
+        return get(URI_USERS, WrapperUserList.class).getData();
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public UserDto getUsersById(@PathVariable String id) {
+        return get(URI_USERS + "/" + id, WrapperUser.class).getData();
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    public ResponseEntity saveUsers(@RequestBody UserDto UsersDto) {
+        restTemplate.put(GATEWAY_PATH + URI_USERS, UsersDto, WrapperUser.class);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteUsersById(@PathVariable String id) {
+        restTemplate.delete(GATEWAY_PATH + URI_USERS + "/" + id);
         return ResponseEntity.ok().build();
     }
 }

@@ -35,7 +35,7 @@ public class DocumentController {
         resultList.forEach(item -> {
             Link selfLink = linkTo(methodOn(DocumentController.class)
                     .getDocumentTypeById(item.getDocumentTypeId())).withSelfRel();
-//            item.add(selfLink);
+            item.add(selfLink);
         });
 
         return Wrapper.create(resultList);
