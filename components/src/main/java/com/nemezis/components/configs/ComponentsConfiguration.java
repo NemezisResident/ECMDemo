@@ -1,5 +1,7 @@
 package com.nemezis.components.configs;
 
+import com.nemezis.components.entity.Document;
+import com.nemezis.models.DocumentDto;
 import com.nemezis.models.DocumentTypeDto;
 import com.nemezis.components.entity.DocumentType;
 import net.rakugakibox.spring.boot.orika.OrikaMapperFactoryConfigurer;
@@ -24,11 +26,21 @@ public class ComponentsConfiguration {
     }
 
     @Bean
-    OrikaMapperFactoryConfigurer configureRequestPortalMarkGoodsDetailsType() {
+    OrikaMapperFactoryConfigurer configureDocumentTypeDto() {
         return mapperFactory -> mapperFactory
                 .classMap(DocumentTypeDto.class,
                         DocumentType.class)
                 .field("documentTypeId","id")
+                .byDefault()
+                .register();
+    }
+
+    @Bean
+    OrikaMapperFactoryConfigurer configureDocumentDto() {
+        return mapperFactory -> mapperFactory
+                .classMap(DocumentDto.class,
+                        Document.class)
+                .field("documentId","id")
                 .byDefault()
                 .register();
     }

@@ -3,6 +3,7 @@ package com.nemezis.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.ResourceSupport;
 import java.util.Date;
 
 /**
@@ -11,9 +12,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentDto {
+public class DocumentDto extends ResourceSupport {
 
-    private long id;
+    private long documentId;
     private DocumentTypeDto documentType;
     private Date dateFrom;
     private Date dateTo;

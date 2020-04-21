@@ -8,14 +8,9 @@ import com.nemezis.models.DocumentTypeDto;
 import com.nemezis.models.Wrapper;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 
 /**
  * Главный контроллер
@@ -29,21 +24,12 @@ public class DocumentController {
     // DocumentType
     @GetMapping("/documentTypes")
     public Wrapper<List<DocumentTypeDto>> getDocumentTypes() {
-
-        List<DocumentTypeDto> resultList = mapperFacade.mapAsList(documentService.getDocumentTypes(), DocumentTypeDto.class);
-
-        resultList.forEach(item -> {
-            Link selfLink = linkTo(methodOn(DocumentController.class)
-                    .getDocumentTypeById(item.getDocumentTypeId())).withSelfRel();
-            item.add(selfLink);
-        });
-
-        return Wrapper.create(resultList);
+        return Wrapper.create(documentService.getDocumentTypes());
     }
 
     @GetMapping("/documentTypes/{id}")
     public Wrapper<DocumentTypeDto> getDocumentTypeById(@PathVariable Long id) {
-        return Wrapper.create(mapperFacade.map(documentService.getDocumentTypeById(id), DocumentTypeDto.class));
+        return Wrapper.create(documentService.getDocumentTypeById(id));
     }
 
     @PutMapping("/documentTypes")
@@ -65,7 +51,7 @@ public class DocumentController {
 
     @GetMapping("/documents/{id}")
     public Wrapper<DocumentDto> getDocumentById(@PathVariable Long id) {
-        return Wrapper.create(mapperFacade.map(documentService.getDocumentById(id), DocumentDto.class));
+        return Wrapper.create(documentService.getDocumentById(id));
     }
 
     @PutMapping("/documents")
@@ -77,5 +63,10 @@ public class DocumentController {
     public ResponseEntity deleteDocumentById(@PathVariable Long id) {
         documentService.deleteDocumentById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/documentTypes/{id}/documents")
+    public List<DocumentDto> getDocumentsByDocumentTypeId(@PathVariable Long id) {
+        return documentService.getDocumentsByDocumentTypeId(id);
     }
 }
