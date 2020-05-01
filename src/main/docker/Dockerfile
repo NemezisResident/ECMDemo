@@ -11,6 +11,10 @@ ENV MYSQL_DATA_DIR=/var/lib/mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
 # Копируем sql в папку для наполнения БД
 COPY ./setup.sql /docker-entrypoint-initdb.d/
 #COPY ./setup.sh /docker-entrypoint-initdb.d/

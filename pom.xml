@@ -7,7 +7,7 @@
     <groupId>com.nemezis.multi</groupId>
     <artifactId>ECMDemo</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.7.0</version>
 
     <modules>
         <module>common</module>
