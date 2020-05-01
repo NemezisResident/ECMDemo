@@ -77,4 +77,45 @@
             <version>2.1.4.RELEASE</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>prepare-package</id>
+                        <phase>package</phase>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <target>
+                                <!-- Сборка образа /create image -->
+                                <exec executable="docker">
+                                    <arg value="build"/>
+                                    <arg value="-t"/>
+                                    <arg value="docker_test:${project.version}"/>
+                                    <arg value="src/main/docker"/>
+                                </exec>
+                                <!-- Старт контейнера из полученного образа /start container -->
+                                <exec executable="docker">
+                                    <arg value="run"/>
+                                    <arg value="--detach"/>
+                                    <arg value="--name"/>
+                                    <arg value="ecm_test_container"/>
+                                    <arg value="-p"/>
+                                    <arg value="3306:3306"/>
+                                    <arg value="docker_test:${project.version}"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
